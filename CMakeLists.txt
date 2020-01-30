@@ -112,6 +112,7 @@ include_directories(include)
 file(GLOB LIB_HEADERS "include/*.h")
 set(LIB_SOURCES src/COLLADA2GLTFWriter.cpp src/COLLADA2GLTFExtrasHandler.cpp)
 add_library(${PROJECT_NAME} ${LIB_HEADERS} ${LIB_SOURCES})
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_BINARY_DIR})
 target_link_libraries(${PROJECT_NAME} GLTF ${OpenCOLLADA})
 
 # ahoy
@@ -120,6 +121,7 @@ add_subdirectory(dependencies/ahoy)
 
 if(NOT NO_COLLADA2GLTF_BIN)
   add_executable(${PROJECT_NAME}-bin src/main.cpp)
+  target_include_directories(${PROJECT_NAME}-bin PRIVATE ${CMAKE_BINARY_DIR})
   target_link_libraries(${PROJECT_NAME}-bin ${PROJECT_NAME} ahoy draco)
 endif()
 
